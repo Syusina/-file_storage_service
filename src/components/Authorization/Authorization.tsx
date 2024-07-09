@@ -10,7 +10,6 @@ const Authorization = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const token = useSelector(selectToken);
-  console.log("🚀 ~ Authorization ~ token:", token)
 
   const handleAuthorization = (e) => {
     e.preventDefault();
