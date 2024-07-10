@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
 interface File {
   id: string;
@@ -15,15 +14,16 @@ interface FilesState {
   loading: 'idle' | 'pending' | 'fulfilled' | 'rejected';
 }
 
-export const fetchFiles = createAsyncThunk(
-  'files/fetchFiles',
-  async ({ token }: { token: string }) => {
-    const response = await fetch('https://js-test.kitactive.ru/api/media', {
-      method: 'GET',
+export const fetchFilesUpload = createAsyncThunk(
+  'files/fetchFilesUpload',
+  async ({ token, files }: { token: string, files: File[] }) => {
+    const response = await fetch('https://js-test.kitactive.ru/api/media/upload', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+      body: JSON.stringify({ files })
     });
 
     const data = await response.json();
@@ -31,21 +31,20 @@ export const fetchFiles = createAsyncThunk(
   }
 );
 
-const filesSlice = createSlice({
-  name: 'files',
+const filesUploadSlice = createSlice({
+  name: 'filesUpload',
   initialState: {
     files: [],
     loading: 'idle',
   } as FilesState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFiles.fulfilled, (state, action) => {
+    builder.addCase(fetchFilesUpload.fulfilled, (state, action) => {
       state.files = action.payload;
       state.loading = 'fulfilled';
     });
   },
 });
 
-export const selectArrFiles = (state: RootState) => state.files.files;
 
-export const filesArrReducer = filesSlice.reducer;
+export const filesUploadReducer = filesUploadSlice.reducer;
