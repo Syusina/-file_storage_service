@@ -13,18 +13,16 @@ const Authorization = () => {
 
   const handleAuthorization = (e) => {
     e.preventDefault();
-    dispatch(authorizationUser({ email, password }));
-    
-    if (token) {
-      navigate('/main', { replace: false });
-    }
-    
-    localStorage.setItem('token', token);
+    dispatch(authorizationUser({ email, password })).then(() => {
+      if (token) {
+        navigate('/main', { replace: false });
+      }
+    });
   };
 
   return (
     <div className={styles.wrapper}>
-      <form action="">
+      <form>
         <h1 className={styles.title}>Авторизация</h1>
         <div className={styles.inputBox}>
           <input

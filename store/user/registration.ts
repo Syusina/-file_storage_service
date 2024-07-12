@@ -1,18 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const registerUser = createAsyncThunk(
   'user/register',
   async ({ email, password, name }: { email: string; password: string; name: string }) => {
-    const response = await fetch('https://js-test.kitactive.ru/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password, name }),
+    const response = await axios.post('https://js-test.kitactive.ru/api/register', {
+      email,
+      password,
+      name,
     });
-
-    const data = await response.json();
-    return data;
+    return response.data;
   }
 );
 
