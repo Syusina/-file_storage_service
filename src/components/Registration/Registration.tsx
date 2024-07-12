@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { registerUser } from '../../../store/registration';
 import styles from './Registration.module.css';
+import { registerUser } from '../../../store/user/registration';
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const Registration = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const handleRegistration = (e) => {
+  const handleRegistration = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     dispatch(registerUser({ email, password, name }));
   };

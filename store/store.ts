@@ -1,15 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { userRegistrationReducer } from './registration/index';
-import { userAuthorisationReducer } from './autorization/index';
-import { userExitReducer } from './exit/index';
 import { filesReducer } from './files/index';
-
+import { userReducer } from './user';
 
 const store = configureStore({
   reducer: {
-    userRegistration:  userRegistrationReducer,
-    userAuthorization: userAuthorisationReducer,
-    userExit: userExitReducer,
+    user: userReducer,
     files: filesReducer,
   },
 });

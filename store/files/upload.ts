@@ -40,7 +40,7 @@ const filesUploadSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchFilesUpload.fulfilled, (state, action) => {
-      state.files = action.payload;
+      state.files = action.payload.files;
       state.loading = 'fulfilled';
     });
   },

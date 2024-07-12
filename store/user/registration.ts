@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const exitUser = createAsyncThunk(
-  'user/exit',
-  async ({ token }: { token: string }) => {
-    const response = await fetch('https://js-test.kitactive.ru/api/logout', {
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async ({ email, password, name }: { email: string; password: string; name: string }) => {
+    const response = await fetch('https://js-test.kitactive.ru/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${token}`
       },
+      body: JSON.stringify({ email, password, name }),
     });
 
     const data = await response.json();
@@ -16,8 +16,8 @@ export const exitUser = createAsyncThunk(
   }
 );
 
-const userExitSlice = createSlice({
-  name: 'user',
+const userRegistrationSlice = createSlice({
+  name: 'userRegistration',
   initialState: {
     email: '',
     password: '',
@@ -25,7 +25,7 @@ const userExitSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(exitUser.fulfilled, (state, action) => {
+    builder.addCase(registerUser.fulfilled, (state, action) => {
       state.email = action.payload.email;
       state.password = action.payload.password;
       state.name = action.payload.name;
@@ -33,4 +33,4 @@ const userExitSlice = createSlice({
   },
 });
 
-export const userExitReducer = userExitSlice.reducer;
+export const userRegistrationReducer = userRegistrationSlice.reducer;

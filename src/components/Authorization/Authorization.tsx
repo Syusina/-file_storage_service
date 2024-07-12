@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { authorizationUser, selectToken } from '../../../store/autorization';
+import { authorizationUser, selectToken } from '../../../store/user/authorization';
 import styles from './Authorization.module.css';
 
 const Authorization = () => {
@@ -18,6 +18,8 @@ const Authorization = () => {
     if (token) {
       navigate('/main', { replace: false });
     }
+    
+    localStorage.setItem('token', token);
   };
 
   return (

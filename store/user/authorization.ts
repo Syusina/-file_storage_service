@@ -34,7 +34,7 @@ const userAuthorisationSlice = createSlice({
   },
 });
 
-export const selectToken = (state: RootState) => state.userAuthorization.token;
+export const selectToken = (state: RootState) => state.user.auth.token;
 
 export const userAuthorisationReducer = userAuthorisationSlice.reducer;
 

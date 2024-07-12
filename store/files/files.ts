@@ -12,7 +12,7 @@ interface File {
 
 interface FilesState {
   files: File[];
-  loading: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+  status: string;
 }
 
 export const fetchFiles = createAsyncThunk(
@@ -35,13 +35,13 @@ const filesSlice = createSlice({
   name: 'files',
   initialState: {
     files: [],
-    loading: 'idle',
+    status: 'idle',
   } as FilesState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchFiles.fulfilled, (state, action) => {
-      state.files = action.payload;
-      state.loading = 'fulfilled';
+      state.files = action.payload.files;
+      state.status = action.payload.status;
     });
   },
 });

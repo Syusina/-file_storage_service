@@ -1,31 +1,30 @@
-import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { fetchFilesUpload } from "../../../../store/files/upload";
 
 const Upload = ({ token }: { token: string }) => {
   const dispatch = useDispatch();
 
-  const [selectedFiles, setSelectedFiles] = useState([]);
-  console.log("🚀 ~ Upload ~ selectedFiles:", selectedFiles)
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.currentTarget.files;
+    const formData = new FormData();
+  
+    for (let i = 0; i < files.length; i += 1) {
+      formData.append('file', files[i]);
+    }
+    console.log("🚀 ~ handleFileUpload ~ formData:", formData)
 
-  const handleFileChange = (event) => {
-    setSelectedFiles(event.target.files);
-  };
-
-  const handleUpload = () => {
-    // if (token && selectedFiles) {
-    //   dispatch(fetchFilesUpload({ token, files: selectedFiles }));
-    // }
+    try {
+     // await dispatch(fetchFilesUpload({ token, files: formData }));
+    } catch (error) {
+      // Handle error, if any
+    }
   };
 
   
   return (
     <div>
-      <form>
-        <input type="file" onChange={handleFileChange} multiple />
-        <button onClick={handleUpload}>Добавить</button>
-      </form>
-  </div>
+      <input type="file" onChange={handleFileUpload} multiple />
+    </div>
   );
 };
 
